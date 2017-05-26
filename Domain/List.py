@@ -18,6 +18,7 @@ class CircularList:
             tail.nextNode = head
             tail.prevNode = head
             nodes += 1
+            return
         else:
             auxNode.prevNode.nextNode = newNode
             newNode.nextNode = auxNode
@@ -25,6 +26,7 @@ class CircularList:
             auxNode.prevNode = newNode
             tail = head.prevNode
             nodes += 1
+            return 0
             
     def insertAtHead(self, data):
         global head, tail, nodes
@@ -39,6 +41,7 @@ class CircularList:
             tail.nextNode = head
             tail.prevNode = head
             nodes += 1
+            return 0
 
         else:
             newNode.nextNode = head
@@ -47,6 +50,7 @@ class CircularList:
             tail.nextNode = newNode
             head = newNode
             nodes += 1
+            return 0
 
     def deleteNode(self, value):
         global nodes, head, tail
@@ -101,14 +105,17 @@ def printList():
 
     if nodes == 0:
         print("The list is empty")
+        return -1
     elif nodes == 1:
         print("(", tail.data, ")<->", head.data, "<->(", head.data, ")")
+        return 0
     else:
         print("(", tail.data, ")", end="")
         for x in range(0, nodes):
             print("<->", auxNode.data, end=" ")
             auxNode = auxNode.nextNode
         print("<->(", head.data, ")")
+        return 0
 
 head = CircularList(None)
 tail = CircularList(None)
@@ -117,6 +124,7 @@ nodes = 0
 medium = CircularList(None)
 
 medium.insertAtTail(5)
+printList()
 medium.insertAtTail(10)
 printList()
 medium.updateElement(10,15)
