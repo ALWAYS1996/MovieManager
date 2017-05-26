@@ -1,5 +1,4 @@
 class CircularList:
-    print(__name__)
     def __init__(self, data):
         self.data = data
         self.nextNode = None
@@ -60,6 +59,21 @@ class CircularList:
             print("Cannot delete, the list is empty")
             return -1
 
+    def updateElement(self, value, newValue):
+        auxNode = head
+        if nodes == 0:
+            print("Cannot update, the list is empty")
+            return -1
+        for x in range(0,nodes):
+            if value == auxNode.data:
+                auxNode.data = newValue
+                print("Value updated succesfully")
+                return 0
+            else:
+                auxNode = auxNode.nextNode
+        print("The inserted value doesn't coincide with any Node value")
+        return -1
+
 def printList():
     auxNode = head
 
@@ -77,3 +91,13 @@ def printList():
 head = CircularList(None)
 tail = CircularList(None)
 nodes = 0
+
+medium = CircularList(None)
+
+medium.createNewNode(5)
+medium.createNewNode(10)
+printList()
+medium.updateElement(10,15)
+printList()
+medium.deleteNode(5)
+printList()
