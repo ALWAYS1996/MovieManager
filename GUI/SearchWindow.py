@@ -1,7 +1,6 @@
 from tkinter import *
 from tkinter import ttk, StringVar
 import platform
-
 class window:
 
     def __init__(self):
@@ -50,7 +49,7 @@ class window:
 
             search.mainloop()
             #locations and sizes for windows 10
-        else:
+        elif platform.system() == "Windows":
             search = Tk()
             search.title("Search for a movie")
             search.minsize(540, 340)
