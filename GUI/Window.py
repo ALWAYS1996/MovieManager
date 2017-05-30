@@ -1,5 +1,7 @@
 from tkinter import *
 from tkinter.filedialog import askopenfilename
+import GUI.SearchWindow
+import GUI.AddWindow
 
 class buttons:
 
@@ -16,10 +18,8 @@ def loadFile():
     filename = askopenfilename()
     print(filename)
 def searchMovie():
-    import GUI.SearchWindow
     auxSearchWindow = GUI.SearchWindow.window()
 def newMovie():
-    import GUI.AddWindow
     auxAddWindow = GUI.AddWindow.window()
 
 window = Tk()

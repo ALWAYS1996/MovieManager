@@ -6,7 +6,7 @@ class window:
     def __init__(self):
         #locations and sizes for linux mint
         if platform.system() == "Linux":
-            search = Tk()
+            search = Toplevel()
             search.title("Search for a movie")
             search.minsize(580, 330)
             search.maxsize(580, 330)
@@ -50,7 +50,7 @@ class window:
             search.mainloop()
             #locations and sizes for windows 10
         elif platform.system() == "Windows":
-            search = Tk()
+            search = Toplevel()
             search.title("Search for a movie")
             search.minsize(540, 340)
             search.maxsize(540, 340)
@@ -94,3 +94,4 @@ class window:
 
     def searchCommand(self):
         print(self.textField.get())
+
