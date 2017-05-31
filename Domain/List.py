@@ -4,6 +4,9 @@ class CircularList:
         self.nextNode = None
         self.prevNode = None
 
+    def insertAtPoint(self, value):
+        pass
+
     def insertAtTail(self, value):
         global head, tail, nodes
 

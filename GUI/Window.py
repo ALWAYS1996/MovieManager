@@ -1,7 +1,10 @@
 from tkinter import *
 from tkinter.filedialog import askopenfilename
+from tkinter.messagebox import *
 import GUI.SearchWindow
 import GUI.AddWindow
+
+file = ""
 
 class buttons:
 
@@ -14,13 +17,27 @@ class buttons:
         buttonNewMovie.place(relx=0, x=250, y=50)
 
 def loadFile():
+    global file
+    savedFile = file
     Tk().withdraw()
-    filename = askopenfilename()
-    print(filename)
+    file = askopenfilename()
+    if file.endswith(".csv"):
+        showinfo("File info", "File loaded successfully")
+    else:
+        showerror("File error", "File format not valid")
+        file = savedFile
 def searchMovie():
-    auxSearchWindow = GUI.SearchWindow.window()
+    global file
+    if file != "":
+        auxSearchWindow = GUI.SearchWindow.window()
+    else:
+        showerror("File error", "No file loaded")
 def newMovie():
-    auxAddWindow = GUI.AddWindow.window()
+    global file
+    if file != "":
+        auxAddWindow = GUI.AddWindow.window()
+    else:
+        showerror("File error", "No file loaded")
 
 window = Tk()
 window.title("Registro Peliculas")

@@ -58,8 +58,8 @@ class window:
             textLabel = Label(search, text="Movie name", width=15, height=2)
             textLabel.place(relx=0, x=20, y=20)
 
-            textField = Entry(search)
-            textField.place(relx=0, x=120, y=30)
+            self.textField = Entry(search)
+            self.textField.place(relx=0, x=120, y=30)
 
             searchButton = Button(search, text="Search", width=10, height=1, command=self.searchCommand)
             searchButton.place(relx=0, x=250, y=25)
@@ -94,4 +94,3 @@ class window:
 
     def searchCommand(self):
         print(self.textField.get())
-
