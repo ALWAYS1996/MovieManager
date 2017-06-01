@@ -5,7 +5,51 @@ class CircularList:
         self.prevNode = None
 
     def insertAtPoint(self, value):
-        pass
+        global head, tail, nodes
+
+        auxNode = head
+        newNode = CircularList(value)
+
+        if head.data == None:
+            head = newNode
+            tail = newNode
+            head.nextNode = tail
+            head.prevNode = tail
+            tail.nextNode = head
+            tail.prevNode = head
+            nodes += 1
+            return
+        elif head.data > newNode.data:
+            newNode.nextNode = head
+            newNode.prevNode = tail
+            head.prevNode = newNode
+            tail.nextNode = newNode
+            head = newNode
+            nodes += 1
+            return
+        elif tail.data < newNode.data:
+            tail.nextNode = newNode
+            newNode.nextNode = head
+            newNode.prevNode = tail
+            head.prevNode = newNode
+            tail = newNode
+            nodes += 1
+            return
+        else:
+            for x in range(0,nodes):
+                if auxNode.data < newNode.data:
+                    auxNode = auxNode.nextNode
+                else:
+                    auxNode = auxNode.prevNode
+                    break
+
+            newNode.nextNode = auxNode.nextNode
+            auxNode.nextNode = newNode
+            newNode.prevNode = auxNode
+            newNode.nextNode.prevNode = newNode
+            tail = head.prevNode
+            nodes += 1
+            return
 
     def insertAtTail(self, value):
         global head, tail, nodes
@@ -29,11 +73,10 @@ class CircularList:
             auxNode.prevNode = newNode
             tail = head.prevNode
             nodes += 1
-            return 0
+            return
             
     def insertAtHead(self, data):
         global head, tail, nodes
-        auxNode = head
         newNode = CircularList(data)
 
         if head.data == None:
@@ -44,7 +87,7 @@ class CircularList:
             tail.nextNode = head
             tail.prevNode = head
             nodes += 1
-            return 0
+            return
 
         else:
             newNode.nextNode = head
@@ -53,7 +96,7 @@ class CircularList:
             tail.nextNode = newNode
             head = newNode
             nodes += 1
-            return 0
+            return
 
     def deleteNode(self, value):
         global nodes, head, tail
@@ -65,14 +108,14 @@ class CircularList:
                 head = head.nextNode
                 print(value, " deleted")
                 nodes -= 1
-                return 0
+                return
             elif tail.data == value:
                 tail.prevNode.nextNode = tail.nextNode
                 tail.nextNode.prevNode = tail.prevNode
                 tail = tail.prevNode
                 print(value, " deleted")
                 nodes -= 1
-                return 0
+                return
             else:
                 while(auxNode.nextNode != head):
                     if(auxNode.data == value):
@@ -80,63 +123,46 @@ class CircularList:
                         auxNode.nextNode.prevNode = auxNode.prevNode
                         print(value, " deleted")
                         nodes -= 1
-                        return 0
+                        return
                     auxNode = auxNode.nextNode
             print(value, "Not found")
-            return -1
+            return
         else:
             print("Cannot delete, the list is empty")
-            return -1
+            return
 
     def updateElement(self, value, newValue):
         auxNode = head
         if nodes == 0:
             print("Cannot update, the list is empty")
-            return -1
+            return
         for x in range(0,nodes):
             if value == auxNode.data:
                 auxNode.data = newValue
                 print("Value updated succesfully")
-                return 0
+                return
             else:
                 auxNode = auxNode.nextNode
         print("The inserted value doesn't coincide with any Node value")
-        return -1
+        return
 
 def printList():
     auxNode = head
 
     if nodes == 0:
         print("The list is empty")
-        return -1
+        return
     elif nodes == 1:
         print("(", tail.data, ")<->", head.data, "<->(", head.data, ")")
-        return 0
+        return
     else:
         print("(", tail.data, ")", end="")
         for x in range(0, nodes):
             print("<->", auxNode.data, end=" ")
             auxNode = auxNode.nextNode
         print("<->(", head.data, ")")
-        return 0
+        return
 
 head = CircularList(None)
 tail = CircularList(None)
 nodes = 0
-
-medium = CircularList(None)
-
-medium.insertAtTail(5)
-printList()
-medium.insertAtTail(10)
-printList()
-medium.updateElement(10,15)
-printList()
-medium.insertAtHead(30)
-printList()
-medium.insertAtTail(50)
-printList()
-medium.deleteNode(30)
-printList()
-medium.deleteNode(15)
-printList()
