@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk, StringVar
 import platform
+
 class window:
 
     def __init__(self):
@@ -64,12 +65,12 @@ class window:
             searchButton = Button(search, text="Search", width=10, height=1, command=self.searchCommand)
             searchButton.place(relx=0, x=250, y=25)
 
-            boxLabel = Label(search, text="Search by", width=15, height=2)
+            boxLabel = Label(search, text="Show", width=15, height=2)
             boxLabel.place(relx=0, x=360, y=2)
 
             value = StringVar()
             box = ttk.Combobox(search, textvariable=value, state="readonly")
-            box["values"] = ("Title", "Gender")
+            box["values"] = ("All", "Premier only", "Subbed only", "Premier/Subbed", "Not Premier/Subbed")
             box.place(relx=0, x=350, y=30)
             box.current(0)
 

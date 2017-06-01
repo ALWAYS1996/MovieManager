@@ -3,6 +3,7 @@ from tkinter.filedialog import askopenfilename
 from tkinter.messagebox import *
 import GUI.SearchWindow
 import GUI.AddWindow
+import Domain.ListController
 
 file = ""
 
@@ -23,6 +24,7 @@ def loadFile():
     file = askopenfilename()
     if file.endswith(".csv"):
         showinfo("File info", "File loaded successfully")
+        Domain.ListController.initalizeList(file)
     else:
         showerror("File error", "File format not valid")
         file = savedFile
