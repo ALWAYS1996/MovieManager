@@ -10,7 +10,7 @@ class CircularList:
         auxNode = head
         newNode = CircularList(value)
 
-        if head.data == None:
+        if head.data is None:
             head = newNode
             tail = newNode
             head.nextNode = tail
@@ -57,7 +57,7 @@ class CircularList:
         auxNode = head
         newNode = CircularList(value)
 
-        if head.data == None:
+        if head.data is None:
             head = newNode
             tail = newNode
             head.nextNode = tail
@@ -79,7 +79,7 @@ class CircularList:
         global head, tail, nodes
         newNode = CircularList(data)
 
-        if head.data == None:
+        if head.data is None:
             head = newNode
             tail = newNode
             head.nextNode = tail
@@ -117,8 +117,8 @@ class CircularList:
                 nodes -= 1
                 return
             else:
-                while(auxNode.nextNode != head):
-                    if(auxNode.data == value):
+                while auxNode.nextNode != head:
+                    if auxNode.data == value:
                         auxNode.prevNode.nextNode = auxNode.nextNode
                         auxNode.nextNode.prevNode = auxNode.prevNode
                         print(value, " deleted")
