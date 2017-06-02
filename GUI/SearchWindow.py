@@ -29,7 +29,7 @@ class window:
 
             self.value = StringVar()
             self.box = ttk.Combobox(self.search, textvariable=self.value, state="readonly")
-            self.box["values"] = ("Title", "Gender")
+            self.box["values"] = ("All", "Premier only", "Subbed only", "Premier/Subbed", "Not Premier/Subbed")
             self.box.place(relx=0, x=390, y=30)
             self.box.current(0)
 
