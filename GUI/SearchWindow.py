@@ -1,6 +1,7 @@
 from tkinter import *
 from tkinter import ttk, StringVar
 import platform
+import Domain.ListController
 
 class window:
 
@@ -69,29 +70,42 @@ class window:
             boxLabel.place(relx=0, x=360, y=2)
 
             value = StringVar()
-            box = ttk.Combobox(search, textvariable=value, state="readonly")
-            box["values"] = ("All", "Premier only", "Subbed only", "Premier/Subbed", "Not Premier/Subbed")
-            box.place(relx=0, x=350, y=30)
-            box.current(0)
+            self.box = ttk.Combobox(search, textvariable=value, state="readonly")
+            self.box["values"] = ("All", "Premier only", "Subbed only", "Premier/Subbed", "Not Premier/Subbed")
+            self.box.place(relx=0, x=350, y=30)
+            self.box.current(0)
 
-            tree = ttk.Treeview(search)
-            tree["columns"] = ("Code", "Title", "Gender", "Total", "Subtitled", "Premier")
-            tree.place(relx=0, x=20, y=60)
-            tree.column("Code", width=40, anchor="center")
-            tree.heading("Code", text="Code")
-            tree.column("Title", width=220, anchor="center")
-            tree.heading("Title", text="Title")
-            tree.column("Gender", width=70, anchor="center")
-            tree.heading("Gender", text="Gender")
-            tree.column("Total", width=40, anchor="center")
-            tree.heading("Total", text="Total")
-            tree.column("Subtitled", width=60, anchor="center")
-            tree.heading("Subtitled", text="Subtitled")
-            tree.column("Premier", width=60, anchor="center")
-            tree.heading("Premier", text="Premier")
-            tree["show"] = "headings"
+            self.tree = ttk.Treeview(search)
+            self.tree["columns"] = ("Code", "Title", "Gender", "Total", "Subtitled", "Premier")
+            self.tree.place(relx=0, x=20, y=60)
+            self.tree.column("Code", width=40, anchor="center")
+            self.tree.heading("Code", text="Code")
+            self.tree.column("Title", width=220, anchor="center")
+            self.tree.heading("Title", text="Title")
+            self.tree.column("Gender", width=70, anchor="center")
+            self.tree.heading("Gender", text="Gender")
+            self.tree.column("Total", width=40, anchor="center")
+            self.tree.heading("Total", text="Total")
+            self.tree.column("Subtitled", width=60, anchor="center")
+            self.tree.heading("Subtitled", text="Subtitled")
+            self.tree.column("Premier", width=60, anchor="center")
+            self.tree.heading("Premier", text="Premier")
+            self.tree["show"] = "headings"
 
             search.mainloop()
 
     def searchCommand(self):
-        print(self.textField.get())
+        if self.box.get() == "All":
+            auxHead = Domain.ListController.dramaHead
+            nodes = Domain.ListController.dramaNodes
+            for x in range(0,nodes):
+                self.tree.insert("", "end", values=auxHead.data)
+                auxHead = auxHead.nextNode
+        elif self.box.get() == "Premier only":
+            pass
+        elif self.box.get() == "Subbed only":
+            pass
+        elif self.box.get() == "Premier/Subbed":
+            pass
+        else:
+            pass

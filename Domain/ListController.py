@@ -52,30 +52,29 @@ def initalizeList(file):
                 data += movies[x][y]
                 if data.endswith('"'):
                     data = data[0:-1]
+        singleMovie.append(data)
 
 
 
         #Drama code block
         if singleMovie[2] == "1000":
             medium.insertAtPoint(singleMovie, dramaHead, dramaTail, dramaNodes)
-
         #Comedy code block
         elif singleMovie[2] == "2000":
             medium.insertAtPoint(singleMovie, comedyHead, comedyTail, comedyNodes)
         #Childish code block
         elif singleMovie[2] == "3000":
             medium.insertAtPoint(singleMovie, childishHead, childishTail, childishNodes)
-
         #Action code block
         elif singleMovie[2] == "4000":
             medium.insertAtPoint(singleMovie, actionHead, actionTail, actionNodes)
-
         #Romance code block
         elif singleMovie[2] == "5000":
             medium.insertAtPoint(singleMovie, romanceHead, romanceTail, romanceNodes)
         #Fiction code block
         else:
             medium.insertAtPoint(singleMovie, fictionHead, fictionTail, fictionNodes)
+
 
 def updateElements(head, tail, nodes):
     global dramaHead, dramaTail, dramaNodes
