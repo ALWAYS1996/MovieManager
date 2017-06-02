@@ -25,6 +25,7 @@ def loadFile():
     if file.endswith(".csv"):
         showinfo("File info", "File loaded successfully")
         Domain.ListController.initalizeList(file)
+        GUI.AddWindow.setPath(file)
     else:
         showerror("File error", "File format not valid")
         file = savedFile

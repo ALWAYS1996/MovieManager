@@ -1,8 +1,12 @@
 from tkinter import *
 from tkinter import ttk, StringVar
+from tkinter.messagebox import *
 import platform
 
+path = ""
+
 class window:
+
     def __init__(self):
         # locations and sizes for linux mint
         if platform.system() == "Linux":
@@ -77,21 +81,56 @@ class window:
 
             self.value = StringVar()
             self.box = ttk.Combobox(self.addMovie, textvariable=self.value, state="readonly")
-            self.box["values"] = ("Action", "Terror", "Romance", "Animated", "Drama", "Comedy")
+            self.box["values"] = ("Drama", "Comedy", "Childish", "Action", "Romance", "Fiction")
             self.box.place(relx=0, x=115, y=65)
             self.box.current(0)
 
             self.addMovie.mainloop()
 
     def detect(self):
-        print(self.premier.get())
+
+        global path
+        readFile = open(path, "r+")
+        reading = [line.rstrip('\n') for line in readFile]
+        auxSplit = reading[-1].split(",")
+        code = int(auxSplit[0])
+        code += 1
+        strCode = str(code)
+
+        sub = StringVar
+        pre = StringVar
+        gender = StringVar
+
         if self.premier.get() == 1:
-            print("Premier")
+            pre = "1"
         else:
-            print("Not premier")
+            pre = "0"
         if self.subbed.get() == 1:
-            print("Subbed")
+            sub = "1"
         else:
-            print("Not Subbed")
-        print(self.textField.get())
-win = window()
+            sub = "0"
+
+        if self.box.get() == "Drama":
+            gender = "1000"
+        elif self.box.get() == "Comedy":
+            gender = "2000"
+        elif self.box.get() == "Childish":
+            gender = "3000"
+        elif self.box.get() == "Action":
+            gender = "4000"
+        elif self.box.get() == "Romance":
+            gender = "5000"
+        else:
+            gender = "6000"
+
+        if self.textField.get() == "" or self.amountField.get() == "":
+            showwarning("Blank space", "Please don't let any space in blank", parent=self.addMovie)
+        elif self.textField.get().find(",") != -1:
+            showinfo("Commas", "Commas", parent=self.addMovie)
+        else:
+            readFile.write(strCode + "," + self.textField.get() + "," + gender + "," + self.amountField.get() + "," + sub + "," + pre + "\n")
+            showinfo("Successfully", "Movie inserted correctly", parent=self.addMovie)
+
+def setPath(file):
+    global path
+    path = file
