@@ -19,10 +19,16 @@ class window:
             self.textLabel = Label(self.addMovie, text="Movie name", width=10, height=1)
             self.textLabel.place(relx=0, x=7, y=17)
 
+            self.amountLabel = Label(self.addMovie, text="Amount", width=10, height=1)
+            self.amountLabel.place(relx=0, x=50, y=17)
+
+            self.amountField = Entry(self.addMovie, width=8)
+            self.amountField.place(relx=0, x=212, y=30)
+
             self.subbed = IntVar()
             self.premier = IntVar()
 
-            self.isSubbed = Checkbutton(self.addMovie, text="Subitiles", variable=self.subbed)
+            self.isSubbed = Checkbutton(self.addMovie, text="Subtitles", variable=self.subbed)
             self.isSubbed.place(relx=0, x=5, y=40)
 
             self.isPremier = Checkbutton(self.addMovie, text="Premier", variable=self.premier)
@@ -40,6 +46,7 @@ class window:
             self.addMovie.mainloop()
         # locations and sizes for windows 10
         elif platform.system() == "Windows":
+
             self.addMovie = Toplevel()
             self.addMovie.title("Add a new movie")
             self.addMovie.minsize(300, 150)
@@ -47,10 +54,15 @@ class window:
 
             self.textField = Entry(self.addMovie, width=25)
             self.textField.place(relx=0, x=20, y=30)
-            self.textField.focus_set()
 
             self.textLabel = Label(self.addMovie, text="Movie name", width=10, height=1)
             self.textLabel.place(relx=0, x=17, y=8)
+
+            self.amountLabel = Label(self.addMovie, text="Amount", width=10, height=1)
+            self.amountLabel.place(relx=0, x=200, y=8)
+
+            self.amountField = Entry(self.addMovie, width=8)
+            self.amountField.place(relx=0, x=212, y=30)
 
             self.subbed = IntVar()
             self.premier = IntVar()
@@ -83,3 +95,4 @@ class window:
         else:
             print("Not Subbed")
         print(self.textField.get())
+win = window()
