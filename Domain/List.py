@@ -9,7 +9,7 @@ class CircularList:
 
     def insertAtPoint(self, data, head, tail, nodes):
         auxNode = head
-        newNode = CircularList(data)
+        newNode = CircularList(data, head.identifier)
 
         if head.data is None:
             head = newNode
@@ -20,7 +20,7 @@ class CircularList:
             tail.prevNode = head
             nodes += 1
             return Domain.ListController.updateElements(head, tail, nodes)
-        elif head.data > newNode.data:
+        elif head.data[1] > newNode.data[1]:
             newNode.nextNode = head
             newNode.prevNode = tail
             head.prevNode = newNode
@@ -28,7 +28,7 @@ class CircularList:
             head = newNode
             nodes += 1
             return Domain.ListController.updateElements(head, tail, nodes)
-        elif tail.data < newNode.data:
+        elif tail.data[1] < newNode.data[1]:
             tail.nextNode = newNode
             newNode.nextNode = head
             newNode.prevNode = tail
@@ -38,7 +38,7 @@ class CircularList:
             return Domain.ListController.updateElements(head, tail, nodes)
         else:
             for x in range(0,nodes):
-                if auxNode.data < newNode.data:
+                if auxNode.data[1] < newNode.data[1]:
                     auxNode = auxNode.nextNode
                 else:
                     auxNode = auxNode.prevNode
@@ -51,6 +51,28 @@ class CircularList:
             tail = head.prevNode
             nodes += 1
             return Domain.ListController.updateElements(head, tail, nodes)
+
+    def printList(self, head, tail, nodes):
+
+        auxNode = head
+        if nodes == 0:
+            print("The list is empty")
+            return
+        elif nodes == 1:
+            print("(", tail.data, ")<->", head.data, "<->(", head.data, ")")
+            return
+        else:
+            print("(", tail.data, ")", end="")
+            for x in range(0, nodes):
+                print("<->", auxNode.data, end=" ")
+                auxNode = auxNode.nextNode
+            print("<->(", head.data, ")")
+            return
+
+'''
+Extra code
+Not tested with the project functionality
+Most probably will make a copy of the original Circular List from github
 
     def deleteNode(self, data, head, tail, nodes):
 
@@ -101,26 +123,6 @@ class CircularList:
         print("The inserted value doesn't coincide with any Node value")
         return
 
-    def printList(self, head, tail, nodes):
-
-        auxNode = head
-
-        if nodes == 0:
-            print("The list is empty")
-            return
-        elif nodes == 1:
-            print("(", tail.data, ")<->", head.data, "<->(", head.data, ")")
-            return
-        else:
-            print("(", tail.data, ")", end="")
-            for x in range(0, nodes):
-                print("<->", auxNode.data, end=" ")
-                auxNode = auxNode.nextNode
-            print("<->(", head.data, ")")
-            return
-
-'''
-Extra code
 
     def insertAtTail(self, data, head, tail, nodes):
 

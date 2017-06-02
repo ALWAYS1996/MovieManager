@@ -8,7 +8,7 @@ comedyHead = Domain.List.CircularList(None, 2000)
 childishHead = Domain.List.CircularList(None, 3000)
 actionHead = Domain.List.CircularList(None, 4000)
 romanceHead = Domain.List.CircularList(None, 5000)
-fictionHead = Domain.List.CircularList(None, 600)
+fictionHead = Domain.List.CircularList(None, 6000)
 
 #Tail controllers for the lists
 dramaTail = Domain.List.CircularList(None, 0)
@@ -32,42 +32,86 @@ def initalizeList(file):
     readFile.close()
 
     for x in range(1,len(movies)):
-        singleMovie = movies[x].split(",")
-        gendre = singleMovie[2]
-        if (gendre != "1000"
-            and gendre != "2000"
-            and gendre != "3000"
-            and gendre != "4000"
-            and gendre != "5000"
-            and gendre != "6000"):
-                gendre = singleMovie[3]
 
-        print(gendre)
+        singleMovie = []
+        data = ""
+        flag = False
+
+        for y in range(0, len(movies[x])):
+            if movies[x][y] == '"':
+                flag = not flag
+            if movies[x][y] == ",":
+                if flag:
+                    data += movies[x][y]
+                    if data.endswith('"'):
+                        data = data[0:-1]
+                else:
+                    singleMovie.append(data)
+                    data = ""
+            else:
+                data += movies[x][y]
+                if data.endswith('"'):
+                    data = data[0:-1]
+
+
+
         #Drama code block
         if singleMovie[2] == "1000":
-            medium.insertAtPoint(movies[x], dramaHead, dramaTail, dramaNodes)
-            pass
+            medium.insertAtPoint(singleMovie, dramaHead, dramaTail, dramaNodes)
+
         #Comedy code block
         elif singleMovie[2] == "2000":
-            medium.insertAtPoint(movies[x], comedyHead, comedyTail, comedyNodes)
-            pass
+            medium.insertAtPoint(singleMovie, comedyHead, comedyTail, comedyNodes)
         #Childish code block
         elif singleMovie[2] == "3000":
-            medium.insertAtPoint(movies[x], childishHead, childishTail, childishNodes)
-            pass
+            medium.insertAtPoint(singleMovie, childishHead, childishTail, childishNodes)
+
         #Action code block
         elif singleMovie[2] == "4000":
-            medium.insertAtPoint(movies[x], actionHead, actionTail, actionNodes)
-            pass
+            medium.insertAtPoint(singleMovie, actionHead, actionTail, actionNodes)
+
         #Romance code block
         elif singleMovie[2] == "5000":
-            medium.insertAtPoint(movies[x], romanceHead, romanceTail, romanceNodes)
-            pass
+            medium.insertAtPoint(singleMovie, romanceHead, romanceTail, romanceNodes)
         #Fiction code block
         else:
-            medium.insertAtPoint(movies[x], fictionHead, fictionTail, fictionNodes)
-            pass
+            medium.insertAtPoint(singleMovie, fictionHead, fictionTail, fictionNodes)
 
 def updateElements(head, tail, nodes):
+    global dramaHead, dramaTail, dramaNodes
+    global comedyHead, comedyTail, comedyNodes
+    global childishHead, childishTail, childishNodes
+    global actionHead, actionTail, actionNodes
+    global romanceHead, romanceTail, romanceNodes
+    global fictionHead, fictionTail, fictionNodes
+    global medium
+    #Drama
     if head.identifier == 1000:
-        pass
+        dramaHead = head
+        dramaTail = tail
+        dramaNodes = nodes
+    #Comedy
+    elif head.identifier == 2000:
+        comedyHead = head
+        comedyTail = tail
+        comedyNodes = nodes
+    #Childish
+    elif head.identifier == 3000:
+        childishHead = head
+        childishTail = tail
+        childishNodes = nodes
+    #Action
+    elif head.identifier == 4000:
+        actionHead = head
+        actionTail = tail
+        actionNodes = nodes
+    #Romance
+    elif head.identifier == 5000:
+        romanceHead = head
+        romanceTail = tail
+        romanceNodes = nodes
+    #Fiction
+    else:
+        fictionHead = head
+        fictionTail = tail
+        fictionNodes = nodes
