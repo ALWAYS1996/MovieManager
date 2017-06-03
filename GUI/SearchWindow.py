@@ -24,7 +24,7 @@ class window:
             self.searchButton = Button(self.search, text="Search", width=10, height=1, command=self.searchCommand)
             self.searchButton.place(relx=0, x=270, y=10)
 
-            self.boxLabel = Label (self.search, text="Search by", width=8, height=2)
+            self.boxLabel = Label (self.search, text="Show", width=8, height=2)
             self.boxLabel.place(relx=0, x=440, y=2)
 
             self.value = StringVar()

@@ -42,7 +42,7 @@ class window:
 
             self.value = StringVar()
             self.box = ttk.Combobox(self.addMovie, textvariable=self.value, state="readonly")
-            self.box["values"] = ("Action", "Terror", "Romance", "Animated", "Drama", "Comedy")
+            self.box["values"] = ("Drama", "Comedy", "Childish", "Action", "Romance", "Fiction")
             self.box.place(relx=0, x=95, y=70)
             self.box.current(0)
 
@@ -100,6 +100,7 @@ class window:
         sub = StringVar
         pre = StringVar
         gender = StringVar
+        insertText = ""
 
         if self.premier.get() == 1:
             pre = "1"
@@ -124,12 +125,27 @@ class window:
             gender = "6000"
 
         if self.textField.get() == "" or self.amountField.get() == "":
-            showwarning("Blank space", "Please don't let any space in blank", parent=self.addMovie)
+            showwarning("Blank space", "Please don't left any space in blank", parent=self.addMovie)
+
+        if not self.amountField.get().isnumeric():
+            showwarning("Amount", "Amount can only be a number", parent=self.addMovie)
+
         elif self.textField.get().find(",") != -1:
-            showinfo("Commas", "Commas", parent=self.addMovie)
+
+            if not self.textField.get().startswith('"'):
+                insertText = '"' + self.textField.get()
+            else:
+                insertText = self.textField.get()
+
+            if not self.textField.get().endswith('"'):
+                insertText = insertText + '"'
+            readFile.write(strCode + "," + insertText + "," + gender + "," + self.amountField.get() + "," + sub + "," + pre + "\n")
+            showinfo("Commas",'If your movie does have one or more commas in its name, please put it between quotation mark "". We will do it for you this time')
+
         else:
             readFile.write(strCode + "," + self.textField.get() + "," + gender + "," + self.amountField.get() + "," + sub + "," + pre + "\n")
             showinfo("Successfully", "Movie inserted correctly", parent=self.addMovie)
+        readFile.close()
 
 def setPath(file):
     global path

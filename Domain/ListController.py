@@ -54,8 +54,6 @@ def initalizeList(file):
                     data = data[0:-1]
         singleMovie.append(data)
 
-
-
         #Drama code block
         if singleMovie[2] == "1000":
             medium.insertAtPoint(singleMovie, dramaHead, dramaTail, dramaNodes)
