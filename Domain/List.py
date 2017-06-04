@@ -20,6 +20,7 @@ class CircularList:
             tail.prevNode = head
             nodes += 1
             return Domain.ListController.updateElements(head, tail, nodes)
+
         elif head.data[1] > newNode.data[1]:
             newNode.nextNode = head
             newNode.prevNode = tail
@@ -28,6 +29,7 @@ class CircularList:
             head = newNode
             nodes += 1
             return Domain.ListController.updateElements(head, tail, nodes)
+
         elif tail.data[1] < newNode.data[1]:
             tail.nextNode = newNode
             newNode.nextNode = head
@@ -36,6 +38,7 @@ class CircularList:
             tail = newNode
             nodes += 1
             return Domain.ListController.updateElements(head, tail, nodes)
+
         else:
             for x in range(0,nodes):
                 if auxNode.data[1] < newNode.data[1]:
@@ -52,27 +55,9 @@ class CircularList:
             nodes += 1
             return Domain.ListController.updateElements(head, tail, nodes)
 
-    def printList(self, head, tail, nodes):
-
-        auxNode = head
-        if nodes == 0:
-            print("The list is empty")
-            return
-        elif nodes == 1:
-            print("(", tail.data, ")<->", head.data, "<->(", head.data, ")")
-            return
-        else:
-            print("(", tail.data, ")", end="")
-            for x in range(0, nodes):
-                print("<->", auxNode.data, end=" ")
-                auxNode = auxNode.nextNode
-            print("<->(", head.data, ")")
-            return
-
 '''
 Extra code
-Not tested with the project functionality
-Most probably will make a copy of the original Circular List from github
+Not tested with the project actual functionality
 
     def deleteNode(self, data, head, tail, nodes):
 
@@ -168,5 +153,22 @@ Most probably will make a copy of the original Circular List from github
             tail.nextNode = newNode
             head = newNode
             nodes += 1
+            return
+            
+        def printList(self, head, tail, nodes):
+
+        auxNode = head
+        if nodes == 0:
+            print("The list is empty")
+            return
+        elif nodes == 1:
+            print("(", tail.data, ")<->", head.data, "<->(", head.data, ")")
+            return
+        else:
+            print("(", tail.data, ")", end="")
+            for x in range(0, nodes):
+                print("<->", auxNode.data, end=" ")
+                auxNode = auxNode.nextNode
+            print("<->(", head.data, ")")
             return
 '''

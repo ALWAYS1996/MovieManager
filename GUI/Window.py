@@ -29,12 +29,14 @@ def loadFile():
     else:
         showerror("File error", "File format not valid")
         file = savedFile
+
 def searchMovie():
     global file
     if file != "":
         auxSearchWindow = GUI.SearchWindow.window()
     else:
         showerror("File error", "No file loaded")
+
 def newMovie():
     global file
     if file != "":

@@ -29,7 +29,7 @@ class window:
 
             self.value = StringVar()
             self.box = ttk.Combobox(self.search, textvariable=self.value, state="readonly")
-            self.box["values"] = ("All", "Premier only", "Subbed only", "Premier/Subbed", "Not Premier/Subbed")
+            self.box["values"] = ("All", "Action", "Childish", "Comedy", "Drama", "Fiction", "Romance")
             self.box.place(relx=0, x=390, y=30)
             self.box.current(0)
 
@@ -72,7 +72,7 @@ class window:
 
             self.value = StringVar()
             self.box = ttk.Combobox(self.search, textvariable=self.value, state="readonly")
-            self.box["values"] = ("All", "Premier only", "Subbed only", "Premier/Subbed", "Not Premier/Subbed")
+            self.box["values"] = ("All", "Action", "Childish", "Comedy", "Drama", "Fiction", "Romance")
             self.box.place(relx=0, x=350, y=30)
             self.box.current(0)
 
@@ -97,43 +97,39 @@ class window:
 
     def searchCommand(self):
         self.tree.delete(*self.tree.get_children())
+        searchFlag = False
+
+        if self.textField.get() != "":
+            searchFlag = True
 
         if self.box.get() == "All":
-            searchFlag = False
-            if self.textField.get() != "":
-                searchFlag = True
-            for x in range (0,6):
-                auxHead = None
-                nodes = None
 
-                sub = StringVar
-                pre = StringVar
-                gender = StringVar
+            for x in range (0,6):
 
                 if x == 0:
-                    gender = "Drama"
-                    auxHead = Domain.ListController.dramaHead
-                    nodes = Domain.ListController.dramaNodes
-                elif x == 1:
-                    gender = "Comedy"
-                    auxHead = Domain.ListController.comedyHead
-                    nodes = Domain.ListController.comedyNodes
-                elif x == 2:
-                    gender = "Childish"
-                    auxHead = Domain.ListController.childishHead
-                    nodes = Domain.ListController.childishNodes
-                elif x == 3:
                     gender = "Action"
                     auxHead = Domain.ListController.actionHead
                     nodes = Domain.ListController.actionNodes
+                elif x == 1:
+                    gender = "Childish"
+                    auxHead = Domain.ListController.childishHead
+                    nodes = Domain.ListController.childishNodes
+                elif x == 2:
+                    gender = "Comedy"
+                    auxHead = Domain.ListController.comedyHead
+                    nodes = Domain.ListController.comedyNodes
+                elif x == 3:
+                    gender = "Drama"
+                    auxHead = Domain.ListController.dramaHead
+                    nodes = Domain.ListController.dramaNodes
                 elif x == 4:
-                    gender = "Romance"
-                    auxHead = Domain.ListController.romanceHead
-                    nodes = Domain.ListController.romanceNodes
-                else:
                     gender = "Fiction"
                     auxHead = Domain.ListController.fictionHead
                     nodes = Domain.ListController.fictionNodes
+                else:
+                    gender = "Romance"
+                    auxHead = Domain.ListController.romanceHead
+                    nodes = Domain.ListController.romanceNodes
 
                 for x in range(0,nodes):
 
@@ -156,14 +152,181 @@ class window:
                     else:
                         self.tree.insert("", "end", values=(auxHead.data[0], auxHead.data[1], gender, auxHead.data[3], sub, pre))
                         auxHead = auxHead.nextNode
-            if self.tree.get_children() == ():
-                showwarning("No matches","No results were found", parent=self.search)
 
-        elif self.box.get() == "Premier only":
-            pass
-        elif self.box.get() == "Subbed only":
-            pass
-        elif self.box.get() == "Premier/Subbed":
-            pass
+
+        elif self.box.get() == "Action":
+
+            gender = "Action"
+            auxHead = Domain.ListController.actionHead
+            nodes = Domain.ListController.actionNodes
+
+            for x in range(0, nodes):
+
+                if auxHead.data[4] == "1":
+                    sub = "Yes"
+                else:
+                    sub = "No"
+
+                if auxHead.data[5] == "1":
+                    pre = "Yes"
+                else:
+                    pre = "No"
+
+                if searchFlag:
+                    if auxHead.data[1].lower().find(self.textField.get().lower()) != -1:
+                        self.tree.insert("", "end",
+                                         values=(auxHead.data[0], auxHead.data[1], gender, auxHead.data[3], sub, pre))
+                        auxHead = auxHead.nextNode
+                    else:
+                        auxHead = auxHead.nextNode
+                else:
+                    self.tree.insert("", "end",
+                                     values=(auxHead.data[0], auxHead.data[1], gender, auxHead.data[3], sub, pre))
+                    auxHead = auxHead.nextNode
+
+        elif self.box.get() == "Childish":
+
+            gender = "Childish"
+            auxHead = Domain.ListController.childishHead
+            nodes = Domain.ListController.childishNodes
+
+            for x in range(0, nodes):
+
+                if auxHead.data[4] == "1":
+                    sub = "Yes"
+                else:
+                    sub = "No"
+
+                if auxHead.data[5] == "1":
+                    pre = "Yes"
+                else:
+                    pre = "No"
+
+                if searchFlag:
+                    if auxHead.data[1].lower().find(self.textField.get().lower()) != -1:
+                        self.tree.insert("", "end", values=(auxHead.data[0], auxHead.data[1], gender, auxHead.data[3], sub, pre))
+                        auxHead = auxHead.nextNode
+                    else:
+                        auxHead = auxHead.nextNode
+                else:
+                    self.tree.insert("", "end", values=(auxHead.data[0], auxHead.data[1], gender, auxHead.data[3], sub, pre))
+                    auxHead = auxHead.nextNode
+
+        elif self.box.get() == "Comedy":
+            gender = "Comedy"
+            auxHead = Domain.ListController.comedyHead
+            nodes = Domain.ListController.comedyNodes
+
+            for x in range(0, nodes):
+
+                if auxHead.data[4] == "1":
+                    sub = "Yes"
+                else:
+                    sub = "No"
+
+                if auxHead.data[5] == "1":
+                    pre = "Yes"
+                else:
+                    pre = "No"
+
+                if searchFlag:
+                    if auxHead.data[1].lower().find(self.textField.get().lower()) != -1:
+                        self.tree.insert("", "end", values=(auxHead.data[0], auxHead.data[1], gender, auxHead.data[3], sub, pre))
+                        auxHead = auxHead.nextNode
+                    else:
+                        auxHead = auxHead.nextNode
+                else:
+                    self.tree.insert("", "end", values=(auxHead.data[0], auxHead.data[1], gender, auxHead.data[3], sub, pre))
+                    auxHead = auxHead.nextNode
+
+        elif self.box.get() == "Drama":
+
+            gender = "Drama"
+            auxHead = Domain.ListController.dramaHead
+            nodes = Domain.ListController.dramaNodes
+
+            for x in range(0, nodes):
+
+                if auxHead.data[4] == "1":
+                    sub = "Yes"
+                else:
+                    sub = "No"
+
+                if auxHead.data[5] == "1":
+                    pre = "Yes"
+                else:
+                    pre = "No"
+
+                if searchFlag:
+                    if auxHead.data[1].lower().find(self.textField.get().lower()) != -1:
+                        self.tree.insert("", "end",
+                                         values=(auxHead.data[0], auxHead.data[1], gender, auxHead.data[3], sub, pre))
+                        auxHead = auxHead.nextNode
+                    else:
+                        auxHead = auxHead.nextNode
+                else:
+                    self.tree.insert("", "end",
+                                     values=(auxHead.data[0], auxHead.data[1], gender, auxHead.data[3], sub, pre))
+                    auxHead = auxHead.nextNode
+
+        elif self.box.get() == "Fiction":
+
+            gender = "Fiction"
+            auxHead = Domain.ListController.fictionHead
+            nodes = Domain.ListController.fictionNodes
+
+            for x in range(0, nodes):
+
+                if auxHead.data[4] == "1":
+                    sub = "Yes"
+                else:
+                    sub = "No"
+
+                if auxHead.data[5] == "1":
+                    pre = "Yes"
+                else:
+                    pre = "No"
+
+                if searchFlag:
+                    if auxHead.data[1].lower().find(self.textField.get().lower()) != -1:
+                        self.tree.insert("", "end",
+                                         values=(auxHead.data[0], auxHead.data[1], gender, auxHead.data[3], sub, pre))
+                        auxHead = auxHead.nextNode
+                    else:
+                        auxHead = auxHead.nextNode
+                else:
+                    self.tree.insert("", "end",
+                                     values=(auxHead.data[0], auxHead.data[1], gender, auxHead.data[3], sub, pre))
+                    auxHead = auxHead.nextNode
         else:
-            pass
+
+            gender = "Romance"
+            auxHead = Domain.ListController.romanceHead
+            nodes = Domain.ListController.romanceNodes
+
+            for x in range(0, nodes):
+
+                if auxHead.data[4] == "1":
+                    sub = "Yes"
+                else:
+                    sub = "No"
+
+                if auxHead.data[5] == "1":
+                    pre = "Yes"
+                else:
+                    pre = "No"
+
+                if searchFlag:
+                    if auxHead.data[1].lower().find(self.textField.get().lower()) != -1:
+                        self.tree.insert("", "end",
+                                         values=(auxHead.data[0], auxHead.data[1], gender, auxHead.data[3], sub, pre))
+                        auxHead = auxHead.nextNode
+                    else:
+                        auxHead = auxHead.nextNode
+                else:
+                    self.tree.insert("", "end",
+                                     values=(auxHead.data[0], auxHead.data[1], gender, auxHead.data[3], sub, pre))
+                    auxHead = auxHead.nextNode
+
+        if self.tree.get_children() == ():
+            showwarning("No matches", "No results were found", parent=self.search)

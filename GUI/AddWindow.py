@@ -2,6 +2,7 @@ from tkinter import *
 from tkinter import ttk, StringVar
 from tkinter.messagebox import *
 import platform
+import Domain.ListController
 
 path = ""
 
@@ -37,16 +38,17 @@ class window:
             self.isPremier = Checkbutton(self.addMovie, text="Premier", variable=self.premier)
             self.isPremier.place(relx=0, x=5, y=80)
 
-            self.addButton = Button(self.addMovie, text="Insert Movie", command=self.detect)
+            self.addButton = Button(self.addMovie, text="Insert Movie", command=self.buttonFunction)
             self.addButton.place(relx=0, x=125, y=100)
 
             self.value = StringVar()
             self.box = ttk.Combobox(self.addMovie, textvariable=self.value, state="readonly")
-            self.box["values"] = ("Drama", "Comedy", "Childish", "Action", "Romance", "Fiction")
+            self.box["values"] = ("Action", "Childish", "Comedy", "Drama", "Fiction", "Romance")
             self.box.place(relx=0, x=95, y=70)
             self.box.current(0)
 
             self.addMovie.mainloop()
+
         # locations and sizes for windows 10
         elif platform.system() == "Windows":
 
@@ -76,18 +78,18 @@ class window:
             self.isPremier = Checkbutton(self.addMovie, text="Premier", variable=self.premier)
             self.isPremier.place(relx=0, x=15, y=70)
 
-            self.addButton = Button(self.addMovie, text="Insert Movie", command=self.detect)
+            self.addButton = Button(self.addMovie, text="Insert Movie", command=self.buttonFunction)
             self.addButton.place(relx=0, x=15, y=100)
 
             self.value = StringVar()
             self.box = ttk.Combobox(self.addMovie, textvariable=self.value, state="readonly")
-            self.box["values"] = ("Drama", "Comedy", "Childish", "Action", "Romance", "Fiction")
+            self.box["values"] = ("Action", "Childish", "Comedy", "Drama", "Fiction", "Romance")
             self.box.place(relx=0, x=115, y=65)
             self.box.current(0)
 
             self.addMovie.mainloop()
 
-    def detect(self):
+    def buttonFunction(self):
 
         global path
         readFile = open(path, "r+")
@@ -96,11 +98,6 @@ class window:
         code = int(auxSplit[0])
         code += 1
         strCode = str(code)
-
-        sub = StringVar
-        pre = StringVar
-        gender = StringVar
-        insertText = ""
 
         if self.premier.get() == 1:
             pre = "1"
@@ -126,9 +123,11 @@ class window:
 
         if self.textField.get() == "" or self.amountField.get() == "":
             showwarning("Blank space", "Please don't left any space in blank", parent=self.addMovie)
+            return
 
         if not self.amountField.get().isnumeric():
             showwarning("Amount", "Amount can only be a number", parent=self.addMovie)
+            return
 
         elif self.textField.get().find(",") != -1:
 
@@ -146,6 +145,8 @@ class window:
             readFile.write(strCode + "," + self.textField.get() + "," + gender + "," + self.amountField.get() + "," + sub + "," + pre + "\n")
             showinfo("Successfully", "Movie inserted correctly", parent=self.addMovie)
         readFile.close()
+        Domain.ListController.destroyList()
+
 
 def setPath(file):
     global path
